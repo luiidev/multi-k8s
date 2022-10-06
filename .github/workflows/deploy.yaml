@@ -13,10 +13,9 @@ jobs:
         run: ./decrypt.sh
         env:
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
-      - name: Kubernetes Config
+      - name: Set up Cloud SDK
+        uses: 'google-github-actions/setup-gcloud@v0'
         run: |
-          curl https://sdk.cloud.google.com | bash > /dev/null;
-          source $HOME/google-cloud-sdk/path. bash. inc
           gcloud components update kubectl
           gcloud auth activate-service-account --key-file service-account.json
           gcloud config set project multi-k8s-364705
