@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: k8s-fabrikatoy-pe-tls
+spec:
+  secretName: k8s-fabrikatoy-pe
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: fabrikatoy.pe
+  dnsNames:
+    - k8s.fabrikatoy.pe
