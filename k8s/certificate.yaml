@@ -7,6 +7,6 @@ spec:
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  commonName: fabrikatoy.pe
+  commonName: k8s.fabrikatoy.pe
   dnsNames:
     - k8s.fabrikatoy.pe
