@@ -15,6 +15,7 @@ jobs:
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
       - name: Set up Cloud SDK
         uses: 'google-github-actions/setup-gcloud@v0'
+      - name: Setup kubernetes
         run: |
           gcloud components update kubectl
           gcloud auth activate-service-account --key-file service-account.json
