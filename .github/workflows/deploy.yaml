@@ -14,16 +14,18 @@ jobs:
         env:
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
       - name: Kubernetes Config
-        run: curl https://sdk.cloud.google.com | bash > /dev/null;
-        run: source $HOME/google-cloud-sdk/path. bash. inc
-        run: gcloud components update kubectl
-        run: gcloud auth activate-service-account --key-file service-account.json
-        run: gcloud config set project multi-k8s-364705
-        run: gcloud config set compute/zone us-central1-c
-        run: gcloud container clusters get-credentials multi-cluster
+        run: |
+          curl https://sdk.cloud.google.com | bash > /dev/null;
+          source $HOME/google-cloud-sdk/path. bash. inc
+          gcloud components update kubectl
+          gcloud auth activate-service-account --key-file service-account.json
+          gcloud config set project multi-k8s-364705
+          gcloud config set compute/zone us-central1-c
+          gcloud container clusters get-credentials multi-cluster
       - name: Docker config 
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-        run: docker build -t luiid/react-test -f ./client/Dockerfile.dev ./client
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+          docker build -t luiid/react-test -f ./client/Dockerfile.dev ./client
       - name: Testing
         run: docker run -e CI=true luiid/react-test npm test
       - name: Deploy k8s
