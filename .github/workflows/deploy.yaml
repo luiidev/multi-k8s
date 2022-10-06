@@ -15,14 +15,14 @@ jobs:
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
       - name: Set up Cloud SDK
         uses: 'google-github-actions/setup-gcloud@v0'
-      - name: Setup kubernetes
+      - name: Setup Kubernetes
         run: |
           gcloud components update kubectl
           gcloud auth activate-service-account --key-file service-account.json
           gcloud config set project multi-k8s-364705
           gcloud config set compute/zone us-central1-c
           gcloud container clusters get-credentials multi-cluster
-      - name: Docker config 
+      - name: Setup Docker
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
           docker build -t luiid/react-test -f ./client/Dockerfile.dev ./client
@@ -31,4 +31,4 @@ jobs:
       - name: Deploy k8s
         run: ./deploy.sh
         env:
-          $SHA: ${{ github.sha }}
+          SHA: ${{ github.sha }}
